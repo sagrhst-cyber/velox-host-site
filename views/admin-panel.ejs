@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Velox Host</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">⚡ Velox Host</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/admin">Admin Panel</a>
+            <a href="/admin/logout" class="btn btn-secondary">Logout</a>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="dash-header">
+            <h1>Admin <span style="background:linear-gradient(135deg,#ff4444,#cc0000);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Panel</span></h1>
+        </div>
+
+        <div class="dash-stats">
+            <div class="stat-card">
+                <h3>Active Bots</h3>
+                <div class="stat-value"><%= bots.filter(b => b.status === 'running').length %></div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Bots</h3>
+                <div class="stat-value"><%= bots.length %> / <%= MAX_BOTS %></div>
+            </div>
+            <div class="stat-card">
+                <h3>Max Bots</h3>
+                <div class="stat-value"><%= MAX_BOTS %></div>
+            </div>
+        </div>
+
+        <% if (bots.length < MAX_BOTS) { %>
+        <div class="form-card" style="margin-bottom:24px;">
+            <h3 style="margin-bottom:16px;">Upload Bot</h3>
+            <form method="POST" action="/admin/upload" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Bot Name</label>
+                    <input type="text" name="botname" placeholder="My Awesome Bot" required>
+                </div>
+                <div class="form-group">
+                    <label>Bot Token</label>
+                    <input type="text" name="token" placeholder="Discord bot token" required>
+                </div>
+                <div class="form-group">
+                    <label>Bot Code (ZIP file)</label>
+                    <input type="file" name="botfile" accept=".zip" required>
+                </div>
+                <button type="submit" class="btn btn-success" style="width:100%;justify-content:center;padding:14px;">Upload & Deploy</button>
+            </form>
+        </div>
+        <% } else { %>
+            <div class="form-card" style="margin-bottom:24px;text-align:center;">
+                <p style="color:#ff4444;">Maximum bots reached (<%= MAX_BOTS %>). Delete a bot to add a new one.</p>
+            </div>
+        <% } %>
+
+        <div class="form-card">
+            <h3 style="margin-bottom:16px;">Your Bots</h3>
+            <% if (bots.length === 0) { %>
+                <p style="color:#888;font-size:14px;">No bots deployed yet.</p>
+            <% } else { %>
+                <% bots.forEach(bot => { %>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:12px;">
+                        <div>
+                            <h4 style="font-size:16px;"><%= bot.name %></h4>
+                            <p style="font-size:12px;color:#888;">Status: <span style="color:<%= bot.status === 'running' ? '#00ff88' : '#ff4444' %>;"><%= bot.status.toUpperCase() %></span></p>
+                        </div>
+                        <div style="display:flex;gap:8px;">
+                            <% if (bot.status === 'running') { %>
+                                <a href="/admin/stop/<%= bot.id %>" class="btn btn-danger" style="padding:8px 16px;font-size:12px;">Stop</a>
+                            <% } else { %>
+                                <a href="/admin/start/<%= bot.id %>" class="btn btn-success" style="padding:8px 16px;font-size:12px;">Start</a>
+                            <% } %>
+                            <a href="/admin/delete/<%= bot.id %>" class="btn btn-secondary" style="padding:8px 16px;font-size:12px;color:#ff4444;" onclick="return confirm('Delete this bot?')">Delete</a>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 Velox Host. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Velox Host</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">⚡ Velox Host</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+        </div>
+    </nav>
+
+    <section class="order-section" style="max-width:450px;">
+        <h2 class="section-title">Admin <span>Login</span></h2>
+        <div class="form-card">
+            <% if (error) { %>
+                <p style="color:#ff4444;text-align:center;margin-bottom:16px;"><%= error %></p>
+            <% } %>
+            <form method="POST" action="/admin/login">
+                <div class="form-group">
+                    <label>Admin Code</label>
+                    <input type="password" name="code" placeholder="Enter admin code" required>
+                </div>
+                <button type="submit" class="btn btn-danger" style="width:100%;justify-content:center;padding:14px;">Login</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
