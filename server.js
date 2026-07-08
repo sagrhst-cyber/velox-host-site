@@ -176,6 +176,15 @@ app.post('/admin/upload', upload.single('botfile'), (req, res) => {
         zip.extractAllTo(botDir, true);
         fs.unlinkSync(req.file.path);
 
+        // Flatten if ZIP has single root folder
+        const entries = fs.readdirSync(botDir);
+        if (entries.length === 1 && fs.statSync(path.join(botDir, entries[0])).isDirectory()) {
+            const subDir = path.join(botDir, entries[0]);
+            const subEntries = fs.readdirSync(subDir);
+            subEntries.forEach(e => fs.renameSync(path.join(subDir, e), path.join(botDir, e)));
+            fs.rmdirSync(subDir);
+        }
+
         const botEntry = { id: botId, name: botname, token, status: 'stopped', createdAt: new Date().toISOString() };
         bots.push(botEntry);
         saveBots(bots);
@@ -210,9 +219,11 @@ app.get('/admin/start/:id', async (req, res) => {
     const env = { ...process.env, TOKEN: bot.token };
     const child = spawn('node', [indexFile], { cwd: botDir, env, stdio: 'pipe', shell: true });
 
-    child.stdout.on('data', (data) => console.log(`[${bot.name}] ${data}`));
-    child.stderr.on('data', (data) => console.error(`[${bot.name}] ${data}`));
-    child.on('exit', () => {
+    child.stdout.on('data', (data) => console.log(`[${bot.name}] STDOUT: ${data}`));
+    child.stderr.on('data', (data) => console.error(`[${bot.name}] STDERR: ${data}`));
+    child.on('error', (err) => console.error(`[${bot.name}] ERROR: ${err.message}`));
+    child.on('exit', (code) => {
+        console.log(`[${bot.name}] EXIT with code: ${code}`);
         botProcesses[bot.id] = null;
         const b = loadBots().find(x => x.id === bot.id);
         if (b) { b.status = 'stopped'; saveBots(loadBots().map(x => x.id === bot.id ? b : x)); }
