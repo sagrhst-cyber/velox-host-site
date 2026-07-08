@@ -186,7 +186,7 @@ app.post('/admin/upload', upload.single('botfile'), (req, res) => {
     }
 });
 
-app.get('/admin/start/:id', (req, res) => {
+app.get('/admin/start/:id', async (req, res) => {
     if (!req.session.isAdmin) return res.redirect('/admin');
     const bots = loadBots();
     const bot = bots.find(b => b.id === req.params.id);
@@ -195,6 +195,17 @@ app.get('/admin/start/:id', (req, res) => {
     const botDir = path.join(BOTS_DIR, bot.id);
     const indexFile = findEntryFile(botDir);
     if (!indexFile) return res.redirect('/admin');
+
+    // Auto install dependencies
+    const pkgFile = path.join(botDir, 'package.json');
+    if (fs.existsSync(pkgFile)) {
+        const { execSync } = require('child_process');
+        try {
+            execSync('npm install --omit=dev', { cwd: botDir, timeout: 60000 });
+        } catch (e) {
+            console.error(`[${bot.name}] npm install failed:`, e.message);
+        }
+    }
 
     const env = { ...process.env, TOKEN: bot.token };
     const child = spawn('node', [indexFile], { cwd: botDir, env, stdio: 'pipe', shell: true });
