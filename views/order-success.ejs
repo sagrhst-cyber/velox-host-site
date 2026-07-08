@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Submitted - Velox Host</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">⚡ Velox Host</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
+    </nav>
+
+    <section class="order-section" style="text-align:center;">
+        <h2 class="section-title">Order <span>Submitted!</span></h2>
+        <div class="form-card">
+            <div style="font-size:60px;margin-bottom:20px;">✅</div>
+            <h3 style="font-size:24px;margin-bottom:16px;">Thank you, <%= order.name %>!</h3>
+            <p style="color:#888;margin-bottom:8px;">Your order has been received and is being processed.</p>
+            <p style="color:#888;margin-bottom:8px;"><strong>Bot Type:</strong> <%= order.bot_type %></p>
+            <p style="color:#888;margin-bottom:8px;"><strong>Plan:</strong> <%= order.plan %></p>
+            <p style="color:#888;margin-bottom:8px;"><strong>Payment:</strong> <%= order.payment %></p>
+            <p style="color:#888;margin-bottom:24px;"><strong>Discord:</strong> <%= order.discord %></p>
+            <p style="color:#555;font-size:13px;">We will contact you on Discord to complete the setup.</p>
+            <a href="/" class="btn btn-primary" style="margin-top:24px;">Back to Home</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 Velox Host. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velox Host - Discord Bot Hosting</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">⚡ Velox Host</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="/order">Order</a>
+            <% if (user) { %>
+                <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+            <% } else { %>
+                <a href="/login" class="btn btn-discord">Login with Discord</a>
+            <% } %>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Professional<br><span>Discord Bot Hosting</span></h1>
+        <p>24/7 uptime, instant deployment, and dedicated support for your Discord bots. Focus on development, we handle the hosting.</p>
+        <div class="hero-buttons">
+            <a href="/order" class="btn btn-primary">Get Started</a>
+            <a href="#pricing" class="btn btn-secondary">View Pricing</a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">Why Choose <span>Velox Host</span>?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Deployment</h3>
+                <p>Deploy your bot in seconds with our one-click deployment system. No complex setup required.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>99.9% Uptime</h3>
+                <p>Our infrastructure ensures your bot stays online 24/7 with industry-leading uptime guarantee.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3>Global Servers</h3>
+                <p>Servers across multiple regions for low latency and fast response times worldwide.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Real-time Monitoring</h3>
+                <p>Monitor your bot's performance, CPU usage, memory, and logs in real-time dashboard.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>Auto Restarts</h3>
+                <p>Automatic restarts on crash ensures your bot is always running without manual intervention.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>24/7 Support</h3>
+                <p>Our dedicated support team is available around the clock to help with any issues.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <h2 class="section-title">Simple <span>Pricing</span></h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Weekly</h3>
+                <div class="price"><span class="amount">€5</span><span>/week</span></div>
+                <ul class="pricing-features">
+                    <li>24/7 Bot Hosting</li>
+                    <li>512MB RAM</li>
+                    <li>1 CPU Core</li>
+                    <li>Auto Restart</li>
+                    <li>Basic Support</li>
+                </ul>
+                <a href="/order?plan=weekly" class="btn btn-secondary" style="width:100%;justify-content:center;">Order Now</a>
+            </div>
+            <div class="pricing-card popular">
+                <h3>Monthly</h3>
+                <div class="price"><span class="amount">€15</span><span>/month</span></div>
+                <ul class="pricing-features">
+                    <li>24/7 Bot Hosting</li>
+                    <li>1GB RAM</li>
+                    <li>2 CPU Cores</li>
+                    <li>Auto Restart</li>
+                    <li>Priority Support</li>
+                    <li>Custom Domain</li>
+                </ul>
+                <a href="/order?plan=monthly" class="btn btn-primary" style="width:100%;justify-content:center;">Order Now</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Yearly</h3>
+                <div class="price"><span class="amount">€120</span><span>/year</span></div>
+                <ul class="pricing-features">
+                    <li>24/7 Bot Hosting</li>
+                    <li>2GB RAM</li>
+                    <li>4 CPU Cores</li>
+                    <li>Auto Restart</li>
+                    <li>VIP Support</li>
+                    <li>Custom Domain</li>
+                    <li>Free Setup</li>
+                </ul>
+                <a href="/order?plan=yearly" class="btn btn-secondary" style="width:100%;justify-content:center;">Order Now</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 Velox Host. All rights reserved.</p>
+    </footer>
+</body>
+</html>

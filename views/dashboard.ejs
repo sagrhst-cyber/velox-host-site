@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Velox Host</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">⚡ Velox Host</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/order">Order</a>
+            <div class="user-info">
+                <img class="user-avatar" src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png" alt="avatar" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
+                <span><%= user.username %></span>
+            </div>
+            <a href="/logout" class="btn btn-secondary">Logout</a>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="dash-header">
+            <h1>Welcome, <span style="background:linear-gradient(135deg,#00d4ff,#0099ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;"><%= user.username %></span></h1>
+        </div>
+
+        <div class="dash-stats">
+            <div class="stat-card">
+                <h3>Active Bots</h3>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Orders</h3>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Uptime</h3>
+                <div class="stat-value">99.9%</div>
+            </div>
+        </div>
+
+        <div class="form-card">
+            <h3 style="margin-bottom:16px;">Your Bots</h3>
+            <p style="color:#888;font-size:14px;">No bots deployed yet. <a href="/order" style="color:#00d4ff;">Order now</a> to get started!</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 Velox Host. All rights reserved.</p>
+    </footer>
+</body>
+</html>
